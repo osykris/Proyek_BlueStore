@@ -20,39 +20,37 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link href="css/style.css" rel="stylesheet">
 </head>
-<body data-spy="scroll" data-target="#pb-navbar" data-offset="200">
+<body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: white">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                     <img src="{{ url('images/logo.png') }}" height="40" width="150" >
+                     <img src="{{ url('images/logo.png') }}" height="45" width="150" >
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample09">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="/">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            All Products
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @foreach($categories as $category)
-                            <a class="dropdown-item"
-                                href="{{ route('products.category', $category->id) }}">{{ $category->name }}</a>
-                            @endforeach
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url('/product') }}">All Products</a>
-                        </div>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/product') }}">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact">Contact Us</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -70,13 +68,13 @@
                         @else
                         <li class="nav-item">
                                 <?php
-                                 $pesanan_utama = \App\Models\Order::where('user_id', Auth::user()->id)->where('status',0)->first();
+                                 $pesanan_utama = \App\Models\Order::where('user_id', Auth::user()->id)->where('status','pending')->first();
                                  if(!empty($pesanan_utama))
                                     {
                                      $notif = \App\Models\OrderDetail::where('order_id', $pesanan_utama->id)->count(); 
                                     }
                                 ?>
-                                <a class="nav-link" href="{{ url('check-out') }}">
+                                <a class="nav-link" href="{{ url('view-cart') }}">
                                     <i class="fa fa-shopping-cart"></i>
                                     @if(!empty($notif))
                                     <span class="badge badge-danger">{{ $notif }}</span>
@@ -89,6 +87,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url('profile') }}">
+                                        Profile
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ url('history') }}">
+                                        Order History 
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -106,7 +111,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>

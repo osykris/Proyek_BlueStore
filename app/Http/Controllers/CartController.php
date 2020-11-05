@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Models\Ongkir;
 use Auth;
+use Illuminate\Support\Facades\DB;
 use Alert;
 use App\Models\User;
 use App\Models\Category;
@@ -18,43 +20,46 @@ class CartController extends Controller
         $this->middleware('auth');
     }
 
+
 	public function order(Request $request, $id)
     {	
-    	$product = Product::where('id', $id)->first();
+        $product = Product::where('id', $id)->first();
     	$date = Carbon::now();
 
-    	//validasi apakah melebihi stok
+    	//jika melebihi stok
     	if($request->total_order > $product->qty)
     	{
-    		return redirect('/product/order'.$id);
-    	}
+    		return redirect('/product/'.$id);
+        } 
 
     	//cek validasi
-    	$check_order = Order::where('user_id', Auth::user()->id)->where('status',0)->first();
-    	//simpan ke database pesanan
+        $check_order = Order::where('user_id', Auth::user()->id)->where('status','pending')->first();
+    	//menyimpang ke database Order
     	if(empty($check_order))
     	{
     		$order = new Order;
-	    	$order->user_id = Auth::user()->id;
+            $order->user_id = Auth::user()->id;
 	    	$order->order_date = $date;
-	    	$order->status = 0;
+            $order->status = 'pending';
 	    	$order->total_price = 0;
             $order->code_unic = mt_rand(100, 999);
 	    	$order->save();
     	}
     	
 
-    	//simpan ke database pesanan detail
-    	$new_order = Order::where('user_id', Auth::user()->id)->where('status',0)->first();
+    	//simpan ke databaseOrderdetail
+    	$new_order = Order::where('user_id', Auth::user()->id)->where('status','pending')->first();
 
-    	//cek pesanan detail
-    	$check_order_detail = OrderDetail::where('product_id', $product->id)->where('order_id', $new_order->id)->first();
+    	//cek Orderdetail
+        $check_order_detail = OrderDetail::where('product_id', $product->id)->where('order_id', $new_order->id)->first();
     	if(empty($check_order_detail))
     	{
     		$order_detail = new OrderDetail;
-	    	$order_detail->product_id = $product->id;
+            $order_detail->product_id = $product->id;
+            $order_detail->prouctName = $product->name;
 	    	$order_detail->order_id = $new_order->id;
-	    	$order_detail->total_order = $request->total_order;
+            $order_detail->total_order = $request->total_order;
+            $order_detail->price = $product->price;
 	    	$order_detail->total_price = $product->price*$request->total_order;
 	    	$order_detail->save();
     	}else 
@@ -70,74 +75,97 @@ class CartController extends Controller
     	}
 
     	//jumlah total
-    	$order = Order::where('user_id', Auth::user()->id)->where('status',0)->first();
+    	$order = Order::where('user_id', Auth::user()->id)->where('status','pending')->first();
     	$order->total_price = $order->total_price+$product->price*$request->total_order;
         $order->update();
 		alert()->success('Order successfully entered the cart', 'Success');
-    	return redirect('check-out');
+    	return redirect('view-cart');
 
 	}
 	
-	public function check_out()
+	public function cart()
     {
-        $order = Order::where('user_id', Auth::user()->id)->where('status',0)->first();
+        $order = Order::where('user_id', Auth::user()->id)->where('status','pending')->first();
+        $categories = Category::all();
  		$order_details = [];
         if(!empty($order))
         {
-            $order_details = PesananDetail::where('order_id', $order->id)->get();
+            $order_details = OrderDetail::where('order_id', $order->id)->get();
 
         }
         
-        return view('cart.check_out', compact('order', 'order_details'));
+        return view('check_out', compact('order', 'order_details', 'categories'));
+    }
+    
+	public function check_out()
+    {
+        $order = Order::where('user_id', Auth::user()->id)->where('status','pending')->first();
+        $user = User::where('id', Auth::user()->id)->first();
+        $categories = Category::all();
+        $ongkirs = Ongkir::all();
+ 		$order_details = [];
+        if(!empty($order))
+        {
+            $order_details = OrderDetail::where('order_id', $order->id)->get();
+
+        }
+        
+        return view('check_outFIX', compact('order', 'order_details', 'categories', 'user', 'ongkirs'));
     }
 
     public function delete($id)
     {
-        $pesanan_detail = PesananDetail::where('id', $id)->first();
+        $order_detail = OrderDetail::where('id', $id)->first();
 
-        $pesanan = Order::where('id', $pesanan_detail->pesanan_id)->first();
-        $pesanan->jumlah_harga = $pesanan->jumlah_harga-$pesanan_detail->jumlah_harga;
-        $pesanan->update();
+        $order = Order::where('id',  $order_detail->order_id)->first();
+        $order->total_price =  $order->total_price- $order_detail->total_price;
+        $order->update();
 
 
-        $pesanan_detail->delete();
+        $order_detail->delete();
 
-        Alert::error('Your order has been successfully deleted', 'Deleted');
-        return redirect('check-out');
+        alert()->error('Your order has been successfully deleted', 'Deleted');
+        return redirect('product');
     }
 
-    public function konfirmasi()
+    public function konfirmasi(Request $request)
     {
         $user = User::where('id', Auth::user()->id)->first();
 
-        if(empty($user->alamat))
+        if(empty($user->address))
         {
-            Alert::error('Identitasi Harap dilengkapi', 'Error');
+            alert()->error('Identity please complete', 'Error');
             return redirect('profile');
         }
 
-        if(empty($user->nohp))
+        if(empty($user->phoneNumber))
         {
-            Alert::error('Identitasi Harap dilengkapi', 'Error');
+            alert()->error('Identity please complete', 'Error');
             return redirect('profile');
         }
 
-        $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status',0)->first();
-        $pesanan_id = $pesanan->id;
-        $pesanan->status = 1;
-        $pesanan->update();
+        $order = Order::where('user_id', Auth::user()->id and 'ongkir_id', $request->id_ongkir)->where('status','pending')->first();
+        $ongkirs = Ongkir::where('id', $request->id_ongkir)->first();
+        $order_id =  $order->id;
+        $order->status = 'Waiting for payment';
+        $order->ongkir_id  = $request->id_ongkir;
+        $order->namaKota = $ongkirs->namaKota;
+        $order->tarif = $ongkirs->tarif;
+        $order->shipaddress  = $request->shipaddress;
+        $order->total_price = $order->total_price + $ongkirs->tarif;
+        $order->update();
 
-        $pesanan_details = PesananDetail::where('pesanan_id', $pesanan_id)->get();
-        foreach ($pesanan_details as $pesanan_detail) {
-            $barang = Barang::where('id', $pesanan_detail->barang_id)->first();
-            $barang->stok = $barang->stok-$pesanan_detail->jumlah;
-            $barang->update();
+        $order_details = OrderDetail::where('order_id',  $order_id)->get();
+        foreach ($order_details as $order_detail) {
+            $product = Product::where('id', $order_detail->product_id)->first();
+            $product->qty = $product->qty-$order_detail->total_order;
+            $product->update();
         }
 
 
 
-        Alert::success('Pesanan Sukses Check Out Silahkan Lanjutkan Proses Pembayaran', 'Success');
-        return redirect('history/'.$pesanan_id);
+        alert()->success('Order Successful Check Out Please Continue The Payment Process', 'Success');
+        return redirect('history/'.$order_id);
 
     }
 

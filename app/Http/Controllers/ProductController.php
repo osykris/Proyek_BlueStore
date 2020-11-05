@@ -13,8 +13,7 @@ class ProductController extends Controller
         $products = Product::where('name','like',"%".$name."%")->paginate(2);
         return view('product', [
             'products' => $products,
-            'categories' => Category::all(),
-            'title' => 'List Product'
+            'categories' => Category::all()
         ]);
 
     }
@@ -23,8 +22,7 @@ class ProductController extends Controller
         $products = Product::paginate(11);
         return view('product', [
             'products' => $products,
-            'categories' => Category::all(),
-            'title' => 'List Product'
+            'categories' => Category::all()
         ]);
        
     }

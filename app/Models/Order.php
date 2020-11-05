@@ -16,4 +16,15 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function ongkir()
+    {
+        return $this->belongsTo(Ongkir::class, 'ongkir_id', 'id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'order_id', 'id');
+    }
+
 }
