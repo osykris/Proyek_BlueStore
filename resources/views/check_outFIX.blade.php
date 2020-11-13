@@ -24,7 +24,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th>No.</th>
                                 <th>Picture</th>
                                 <th>Product Name</th>
                                 <th>Total Order</th>

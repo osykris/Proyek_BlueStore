@@ -49,8 +49,16 @@ class PaymentController extends Controller
         $file->move($destinationPath,$file->getClientOriginalName());
         $payment->buktiPayment = $nama_file;
         $payment->save();
+        $order->status = 'Already sent payment';
+        $order->update();
         alert()->success('Thank you for sending payment');
         return redirect('history');
+    }
+
+    public function seePayment($id){
+        $order = Order::where('id', $id)->first();
+        $payments = Payment::where('order_id', $order->id)->get();
+    	return view('detailPayment', compact('order', 'payments'));
     }
 
     

@@ -36,14 +36,18 @@
                                 <td style="color: black;">{{ $order->order_date }}</td>
                                 <td style="color: black;">
                                    {{$order->status}}
+                                   <br>
+                                   @if($order->resiPengiriman != null)
+                                   No. Receipt : {{ $order->resiPengiriman}}
                                 </td>
+                                @endif
                                 <td style="color: black;">Rp. {{ number_format($order->total_price+$order->code_unic) }}</td>
                                 <td style="color: black;">
                                 <a href="{{ url('history') }}/{{ $order->id }}" class="btn btn-primary"><i class="fa fa-info"></i> Detail</a>
-                                @if($order->status = 'Waiting for payment')
-                                    <a href="{{ url('payment') }}/{{ $order->id }}" class="btn btn-primary"><i class="fa fa-info"></i> Input Payment</a>
+                                @if($order->status == 'Waiting for payment')
+                                    <a href="{{ url('payment') }}/{{ $order->id }}" class="btn" style="background-color: 	#FFA07A;"><i class="fa fa-info"></i> Input Payment</a>
                                 @else
-                                    <a href="#" class="btn btn-primary"><i class="fa fa-info"></i> See Payment</a>
+                                    <a href="{{ url('seePayment') }}/{{ $order->id }}" class="btn" style="background-color: 	#F08080 ;"><i class="fa fa-info"></i> See Payment</a>
                                 @endif
                                 </td>
                             </tr>
