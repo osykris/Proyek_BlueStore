@@ -26,7 +26,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div class="card gambar-product">
+            <div class="card gambar-products">
                 <div class="card-body bg-white"> 
                     <img src="{{ url('images/Products') }}/{{ $product->picture }}" class="img-fluid">
                 </div>
@@ -56,11 +56,6 @@
                                     width="180">
                                 {{ $product->category->name }}
                             </td>
-                        </tr>
-                        <tr>
-                            <td>Type</td>
-                            <td>:</td>
-                            <td>{{ $product->type }}</td>
                         </tr>
                         <tr>
                             <td>Description</td>

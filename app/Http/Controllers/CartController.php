@@ -144,7 +144,7 @@ class CartController extends Controller
             return redirect('profile');
         }
 
-        $order = Order::where('user_id', Auth::user()->id and 'ongkir_id', $request->id_ongkir)->where('status','pending')->first();
+        $order = Order::where('user_id', Auth::user()->id)->where('status','pending')->first();
         $ongkirs = Ongkir::where('id', $request->id_ongkir)->first();
         $order_id =  $order->id;
         $order->status = 'Waiting for payment';

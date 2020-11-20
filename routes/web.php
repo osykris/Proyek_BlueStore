@@ -45,11 +45,10 @@ Route::get('contact', function () {
 // for admin
 Route::get('admin', 'Auth\AdminAuthController@getLogin')->name('admin.login');
 Route::post('admin/login', 'Auth\AdminAuthController@postLogin')->name('loginAdmin');
-Route::post('admin/logout', 'Auth\AdminAuthController@postLogout')->name('logoutAdmin');
+Route::get('admin/logout', 'Auth\AdminAuthController@postLogout')->name('logoutAdmin');
 Route::group(['middleware'=>'auth:admin'], function() {
     Route::get('/ajax/categories/search', 'Admin\CategoryController@ajaxSearch');
         Route::get('/dashboard','Admin\HomeController@index')->name('home');
-        Route::get('/cetak','Admin\DashboardController@cetak')->name('cetak');
         Route::get('products', 'Admin\ProductController@index')->name('product');
         Route::get('products/addProduct', 'Admin\ProductController@indexAdd');
         Route::post('products/saveProduct', 'Admin\ProductController@addProduct');

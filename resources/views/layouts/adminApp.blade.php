@@ -3,31 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
+    <script type="text/javascript" src="chartjs/Chart.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Laravel') }}</title>
-	<!-- BOOTSTRAP STYLES-->
-    <link href="{!! asset('css/bootstrap.css') !!}" rel="stylesheet" type="text/css">
-    
-     <!-- FONTAWESOME STYLES-->
+    <link href="{!! asset('css/bootstrap.css') !!}" rel="stylesheet" type="text/css">    
     <link href="{!! asset('css/font-awesome.css') !!}" rel="stylesheet" type="text/css">
-     <!-- MORRIS CHART STYLES-->
     <link href="{!! asset('js/morris/morris-0.4.3.min.css') !!}" rel="stylesheet" type="text/css">
-        <!-- CUSTOM STYLES-->
     <link href="{!! asset('css/custom.css') !!}" rel="stylesheet" type="text/css">
-     <!-- GOOGLE FONTS-->
      <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a87e9d7c5f.js" crossorigin="anonymous"></script>
-
-    <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-      <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <!--===============================================================================================-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     
 </head>
@@ -43,8 +30,8 @@
                 </button>
                 <a class="navbar-brand" href="index.html">Admin Store</a> 
             </div>
-        <div style="color: white;padding: 15px 50px 5px 50px;float: right;font-size: 16px;">
-            <form action="{{route('logoutAdmin')}}" method="POST">
+        <div style="padding: 15px 50px 5px 50px;float: right;font-size: 16px;">
+            <form action="{{route('logoutAdmin')}}" method="get">
             @csrf
                 <button class="dropdown-item bg-danger" style="cursor:pointer">Log Out</button>
             </form>
@@ -85,10 +72,6 @@
                         @yield('content')
                     </div>
                 </div>              
-               
-     <!-- /. WRAPPER  -->
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-1.10.2.js"></script>
       <!-- BOOTSTRAP SCRIPTS -->
     <script src="assets/js/bootstrap.min.js"></script>

@@ -69,7 +69,7 @@
                                 <td>Shipping Address</td>
                                 <td>:</td>
                                 <td align="right">
-                                    <form method="POST" action="/konfirmasi-check-out" >
+                                    <form method="POST" action="/konfirmasi-check-out">
                                         @csrf
                                         <select class="custom-select" name="id_ongkir">
                                             <option selected>Select Shipping Post</option>

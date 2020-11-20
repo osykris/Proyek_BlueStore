@@ -1,4 +1,4 @@
-import Vue from 'vue';npm install --save vue
+import Vue from 'vue';
 import axios from 'axios';
 import Chart from 'chart.js';
 new Vue({

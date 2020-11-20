@@ -66,13 +66,12 @@ section {
 
 body {
   margin: 0;
-  font-family: "Nunito", sans-serif;
-  font-size: 0.9rem;
+  font-size: 1 rem;
   font-weight: 400;
   line-height: 1.6;
   color: #212529;
   text-align: left;
-  background-color: #f8fafc;
+  background-color: #ecebeb;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -5179,7 +5178,7 @@ input[type=button].btn-block {
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   list-style: none;
-  background-color: #e9ecef;
+  background-color: #e9ecef transparent;
   border-radius: 0.25rem;
 }
 
@@ -10899,3 +10898,40 @@ a.text-dark:focus {
   }
 }
 
+
+.banner img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.pilih-liga img {
+  width: 100%;
+}
+
+.pilih-liga .card {
+  border-radius: 15px;
+}
+
+.products .card {
+  border-radius: 15px;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  padding: 0;
+}
+
+.breadcrumb .active {
+  font-weight: bold;
+  color: black;
+}
+
+.btn-dark {
+  border-radius: 10px;
+}
+
+.gambar-product {
+  background-color: #ecebeb;
+  border-width: 0;
+  border-radius: 20px;
+}

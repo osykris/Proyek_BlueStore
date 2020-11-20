@@ -28,7 +28,7 @@
     <div class="limiter" >
 		<div class="container-login100" style="background-image: url(images/about.png);">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form" method="POST" action="{{ route('loginAdmin') }}">
+				<form class="login100-form validate-form" method="POST" action="{{ url('admin/login') }}">
                 @csrf
 					<span class="login100-form-logo">
                         <i class="fas fa-home"></i>

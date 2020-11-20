@@ -30,7 +30,7 @@ class PurchaseController extends Controller
         $order->resiPengiriman = $request->resiPengiriman;
         $order->status = $request->status;
         $order->update();
-        alert()->success('Edit Product is successfull');
+        alert()->success('Input data is successfull');
         return redirect('purchase');
     }
 

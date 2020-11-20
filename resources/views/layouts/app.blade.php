@@ -20,10 +20,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="{!! asset('css/main.css') !!}">
     <!--===============================================================================================-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{!! asset('css/style.css') !!}" rel="stylesheet">
 </head>
 <body>
     <div id="app">

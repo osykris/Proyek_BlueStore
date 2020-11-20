@@ -9,13 +9,13 @@
         <div class="col-md-12 mt-2">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>     
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
                 </ol>
             </nav>
         </div>
         <div class="col-md-12">
-            <div class="card" >
+            <div class="card">
                 <div class="card-body">
                     <h3 style="color: black;"><i class="fa fa-shopping-cart" style="color: black;"></i> Your Shooping Cart</h3>
                     @if(!empty($order))
@@ -38,7 +38,7 @@
                             <tr>
                                 <td>{{ $no++ }}</td>
                                 <td>
-                                    <img src="{{ url('images/Products') }}/{{ $order_detail->product->picture }}" width="100" alt="...">
+                                <img src="{{ url('images/Products') }}/{{ $order_detail->product->picture }}" width="100" alt="...">
                                 </td>
                                 <td>{{ $order_detail->product->name }}</td>
                                 <td>{{ $order_detail->total_order }} product </td>
@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
 @endsection

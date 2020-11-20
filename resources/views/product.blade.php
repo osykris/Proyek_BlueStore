@@ -6,7 +6,7 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-dark">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active text-dark" aria-current="page" >List Product</li>
                     <div class="col-md-7" style="position: absoulte; top: 5%; left: 62%">
                         <div class="input-group mb-3">

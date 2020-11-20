@@ -15,10 +15,7 @@ class AdminAuthController extends Controller
     protected $maxAttempts = 3;
     protected $decayMinutes = 2;
 
-    public function __construct()
-    {
-        $this->middleware('guest:admin')->except('postLogout');
-    }
+ 
 
     public function getLogin()
     {

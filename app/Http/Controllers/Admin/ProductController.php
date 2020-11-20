@@ -64,8 +64,8 @@ class ProductController extends Controller
             $new_product->qty = $request->qty;
         
             $new_product->update();
-            alert()->success('Purchase Data Updated');
-            return redirect('purchase');
+            alert()->success('Product Data Updated');
+            return redirect('products');
         }
 
         public function delete($id)
@@ -75,6 +75,5 @@ class ProductController extends Controller
         alert()->error('Your data has been successfully deleted', 'Deleted');
         return redirect('products');
     }
-
 
 }

@@ -17,7 +17,7 @@
             <section class="site-hero1" style="background-image: url(images/add.png); width: 100%;" id="section-home" data-stellar-background-ratio="0.5">
             </section> 
         </div>
-    <section class="pilih-category mt-4">
+    <section class="pilih-liga mt-5">
       <h1 style="color: black;"><center>Choose<strong> Category</strong><center></h1>
       <div class="row mt-4">
          @foreach($categories as $category)
@@ -38,7 +38,7 @@
          @endforeach
       </div>
    </section>
-   <section class="product mt-5">
+   <section class="products mt-5">
       <h1 style="color: black;"><center>Best<strong> Product</strong><center></h1>
       <div class="row mt-4">
          @foreach($products as $product)

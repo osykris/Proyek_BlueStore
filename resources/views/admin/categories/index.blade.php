@@ -22,7 +22,6 @@
                                     <th> Id </th>
                                     <th> Picture </th>
                                     <th> Action</th>
-
                                 </tr>
                                 </thead>
                                 <tbody>
