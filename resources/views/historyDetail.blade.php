@@ -64,7 +64,7 @@
 
                             <tr>
                                 <td style="color: black;" colspan="5" align="right"><strong>Total Price :</strong></td>
-                                <td  style="color: black;" align="right"><strong>Rp. {{ number_format($order_detail->total_price) }}</strong></td>
+                                <td  style="color: black;" align="right"><strong>Rp. {{ number_format($order->total_price) }}</strong></td>
                                 
                             </tr>
                             <tr>
@@ -79,7 +79,7 @@
                             </tr>
                              <tr>
                                 <td style="color: black;" colspan="5" align="right"><strong>Total that must be transferred :</strong></td>
-                                <td style="color: black; font-weight: bold; " align="right"><strong>Rp. {{ number_format($order->code_unic+$order->total_price) }}</strong></td>
+                                <td style="color: black; font-weight: bold; " align="right"><strong>Rp. {{ number_format($order->code_unic+$order->total_price+$order->tarif) }}</strong></td>
                                 
                             </tr>
                         </tbody>

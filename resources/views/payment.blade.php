@@ -20,7 +20,7 @@
                 <div class="card-body">
                     <h4 style="color: black;"><i style="color: black;" class="fa fa-pencil-alt"></i> Payment Confirmation</h4>
                     @if(!empty($order))
-                    <h2 style="color: red; font-size: 12pt;"  align="right">Your total bill is Rp. {{ number_format($order->code_unic+$order->total_price) }}</h2>
+                    <h2 style="color: red; font-size: 12pt;"  align="right">Your total bill is Rp. {{ number_format($order->code_unic+$order->total_price+$order->tarif) }}</h2>
                     @if(count($errors) > 0)
                     <div class="alert alert-danger">
                         @foreach ($errors->all() as $error)
